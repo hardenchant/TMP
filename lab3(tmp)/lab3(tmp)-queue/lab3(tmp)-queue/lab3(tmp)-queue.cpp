@@ -13,10 +13,10 @@ private:
 	queue *next;
 public:
 	queue();
+	~queue();
 	void add(string data);
 	void get();
 	void del();
-	void delqueue();
 };
 /**
 \func constructor - initializing
@@ -25,6 +25,20 @@ queue::queue()
 {
 	next = nullptr;
 	info = "";
+}
+/**
+\func destructor
+*/
+queue::~queue() {
+	while (next != nullptr) {
+		queue *temp = this;
+		while (temp->next->next != nullptr)
+		{
+			temp = temp->next;
+		}
+		delete temp->next;
+		temp->next = nullptr;
+	}
 }
 /**
 \func add function of queue - add obj in queue
@@ -60,6 +74,7 @@ void queue::del()
 	if (next->next == nullptr)
 	{
 		delete next;
+		next = nullptr;
 	}
 	else
 	{
@@ -68,21 +83,7 @@ void queue::del()
 		delete temp;
 	}
 }
-/**
-\func delqueue function of queue - delete all objects in queue
-*/
-void queue::delqueue()
-{
-	queue *temp = this;
-	while (next != nullptr)
-	{
-		while (temp->next->next != nullptr)
-		{
-			temp = temp->next;
-		}
-		delete temp->next;
-	}
-}
+
 /**
 \func main function in programm
 */
@@ -110,6 +111,5 @@ int main()
 		}
 
 	}
-	head.delqueue();
 	return 0;
 }
