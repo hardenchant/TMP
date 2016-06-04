@@ -13,10 +13,10 @@ private:
 	stack *next;
 public:
 	stack();
+	~stack();
 	void add(string data);
 	void get();
 	void del();
-	void delstack();
 };
 /**
 \func constructor - initializing
@@ -25,6 +25,21 @@ stack::stack()
 {
 	next = nullptr;
 	info = "";
+}
+/**
+\func destructor
+*/
+stack::~stack()
+{
+	while (next != nullptr) {
+		stack *temp = this;
+		while (temp->next->next != nullptr)
+		{
+			temp = temp->next;
+		}
+		delete temp->next;
+		temp->next = nullptr;
+	}
 }
 /**
 \func add function of stack - add obj in stack
@@ -58,7 +73,6 @@ void stack::del()
 {
 	if (next == nullptr)
 	{
-		info = "";
 		return;
 	}
 	stack *temp = this;
@@ -69,21 +83,7 @@ void stack::del()
 	delete temp->next;
 	temp->next = nullptr;
 }
-/**
-\func delstack function of stack - deleted all objects in stack
-*/
-void stack::delstack()
-{
-	stack *temp = this;
-	while (next != nullptr)
-	{
-		while (temp->next->next != nullptr)
-		{
-			temp = temp->next;
-		}
-		delete temp->next;
-	}
-}
+
 /**
 \func main function of programm
 */
@@ -111,6 +111,5 @@ int main()
 		}
 
 	}
-	head.delstack();
 	return 0;
 }
