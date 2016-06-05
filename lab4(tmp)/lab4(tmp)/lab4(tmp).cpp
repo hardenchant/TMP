@@ -29,13 +29,13 @@ void back(int top, int* in, int n)
 	cout << endl;
 }
 
-void symmetry(int top, int* in, int n)
+void sim(int top, int* in, int n)
 {
 	int x = 0;
 	for (int j = 0; j<n; j++)
 		if (in[j] == top)
 		{
-			symmetry(j, in, n);
+			sim(j, in, n);
 			if ((!x) && (top != -1)) cout << top << " ";
 			x++;
 		}
@@ -58,7 +58,7 @@ int main()
 
 	forward(-1, in, N);
 	back(-1, in, N);
-	symmetry(-1, in, N);
+	sim(-1, in, N);
 
 	delete in;
 	return 0;
